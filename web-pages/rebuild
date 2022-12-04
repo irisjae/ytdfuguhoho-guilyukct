@@ -1,0 +1,17 @@
+__path__="$(dirname "$0")"
+
+if [ -z "$WEB_PAGES_SRC_PATH" ] ;then
+	echo WEB_PAGES_SRC_PATH is empty >&2
+	exit 1 ;fi
+
+( cd "$WEB_PAGES_SRC_PATH/pages/"; find . -mindepth 1 -maxdepth 1; cd - >/dev/null ) \
+| sed "s|^\.|$WEB_PAGES_CACHE|" \
+| sed "s|$|\.js|" \
+| xargs rm 2> /dev/null
+
+( cd "$WEB_PAGES_SRC_PATH/pages/"; find . -mindepth 1 -maxdepth 1; cd - >/dev/null ) \
+| sed "s|^\.|$WEB_PAGES_CACHE|" \
+| sed "s|$|\.scss|" \
+| xargs rm 2> /dev/null
+
+"$__path__/refresh" $@

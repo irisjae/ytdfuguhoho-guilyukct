@@ -1,0 +1,865 @@
+page-view {
+	justify-content: center;
+	align-items: center;
+	z-index: 0;
+	position: relative;
+
+
+	login-screen {
+		display: flex;
+		flex-direction: column;
+
+
+		flex: 1;
+		align-self: stretch;
+		justify-content: center;
+		align-items: center;
+
+		> _-graphic[_for=logo] {
+			width: 150px;
+			height: 150px;
+			background-image: url(icon.png);
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+
+			position: absolute;
+			top: 0; }
+
+		> _-action {
+			width: 230px;
+			height: 46px;
+			background-color: #FFFFFF;
+			color: #000000;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			border-radius: 6px;
+			font-weight: 500;
+
+			&[_for=metamask], &[_for=flow] {
+				&:before {
+					content: ' ';
+					display: flex;
+					height: 30px;
+					width: 30px;
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+
+					margin-right: 8px; } }
+			&[_for=metamask] {
+				&:before {
+					background-image: url(metamask-fox.png); } }
+			&[_for=flow] {
+				&:before {
+					height: 26px;
+					width: 26px;
+					background-image: url(flow.png); } }
+			}
+		> _-action + _-action {
+			margin-top: 30px; }
+
+		}
+
+	discover-screen {
+		display: flex;
+		flex-direction: column;
+
+
+		flex: 1;
+		align-self: stretch;
+
+		> nav-view {
+			display: flex;
+			flex-direction: row;
+
+			height: 78px;
+
+			> _-action[_for=ai-art-filter] {
+				display: flex;
+				flex-direction: column;
+				margin: 20px;
+				height: 38px;
+				align-items: center;
+
+				icon-display[_for=ai-art-filter] {
+					display: flex;
+					height: 24px;
+					width: 24px;
+					background-image: url(ai-art-filter-icon.png);
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center; }
+
+				> icon-display + _-label {
+					margin-top: 2px; }
+
+				_-label {
+					color: #FFFFFF;
+					font-size: 12px;
+					font-weight: 700;
+					}
+				}
+			}
+
+		> _-layout[_for=content] {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+
+			banner-view {
+				display: flex;
+				height: 60px;
+				justify-content: center;
+				align-items: center;
+				background-color: #2BFF95;
+				color: #000000;
+				font-weight: 600; }
+
+			banner-view + loyalty-card-view {
+				margin-top: 27px;
+				}
+
+			loyalty-card-view {
+				display: flex;
+				flex-direction: column;
+
+				padding: 0 25px;
+
+				> _-label {
+					font-size: 24px;
+					font-weight: 700; }
+
+				> _-label + _-display {
+					margin-top: 15px; }
+
+				> _-display {
+					font-size: 16px;
+					font-weight: 100; }
+
+				> _-display + card-control {
+					margin-top: 20px; }
+
+				card-control {
+					display: flex;
+					width: 350px;
+					height: 200px;
+					background-color: #004297;
+					border-radius: 10px;
+					padding: 30px 15px;
+					flex-direction: row;
+					flex-wrap: wrap;
+					justify-content: space-between;
+					align-items: center;
+					line-height: 50px;
+
+					> stamp-view {
+						display: flex;
+						width: 50px;
+						height: 50px;
+						background-color: #D9D9D9;
+						border-radius: 25px; }
+
+					> hr {
+						width: 100%;
+						height: 0;
+						outline: none;
+						border: none;
+						margin: 0;
+						margin-top: 30px; } }
+				}
+
+			loyalty-card-view + art-filters-view {
+				margin-top: 30px; }
+
+			art-filters-view {
+				display: flex;
+				flex-direction: row;
+
+				padding: 0 25px;
+
+				art-filter-view {
+					display: flex;
+					flex-direction: column;
+					align-items: start;
+
+					> _-label {
+						font-size: 20px;
+						font-weight: 700; }
+
+					> _-label + img {
+						margin-top: 20px; }
+
+					> img {
+						width: auto;
+						height: 200px; }
+					}
+
+				> art-filter-view + art-filter-view {
+					margin-left: 25px; }
+				}
+			}
+
+		> tabs-view {
+			display: flex;
+			flex-direction: row;
+
+			align-items: stretch;
+
+			height: 72px;
+			background-color: #121212;
+
+			> tab-view {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				> icon-display {
+					display: flex;
+					height: 30px;
+					width: 30px;
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;  }
+				> icon-display[_for=lightbulb] {
+					background-image: url(lightbulb-icon.png);
+					}
+				> icon-display[_for=person] {
+					background-image: url(person-icon.png);
+					}
+
+				> icon-display + _-label {
+					margin-top: 8px; }
+
+				> _-label {
+					font-size: 10px;
+					}
+
+				&[active] {
+					color: #F3E893; } } } }
+
+	profile-screen {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		align-self: stretch;
+
+		> nav-view {
+			display: flex;
+			flex-direction: row;
+			height: 78px;
+			background-color: #121212;
+			align-self: stretch;
+			color: #CCCCCD;
+			font-weight: 100;
+			align-items: center;
+			justify-content: center; }
+
+		> _-layout[_for=content] {
+			display: flex;
+			flex-direction: column;
+			align-self: stretch;
+			flex: 1;
+
+			user-details-view {
+				display: flex;
+				flex-direction: row;
+
+				profile-image-display:first-child {
+					margin-left: 15px; }
+
+				profile-image-display {
+					display: flex;
+					height: 120px;
+					width: 120px;
+
+					img {
+						width: 120px;
+						height: 120px;
+						border-radius: 60px; } }
+
+				> profile-image-display + _-layout[_for=content] {
+					margin-left: 15px; }
+
+				> _-layout[_for=content] {
+					display: flex;
+					flex-direction: column;
+
+					name-display {
+						font-size: 22px;
+						font-weight: 700; }
+
+					> name-display + one-line-description-display {
+						margin-top: 8px; }
+
+					> one-line-description-display + addresses-view {
+						margin-top: 15px; }
+
+					addresses-view {
+						display: flex;
+						flex-direction: column;
+
+						> address-display + address-display {
+							margin-top: 2px; } }
+
+					> addresses-view + description-display {
+						margin-top: 15px; } } }
+
+			> user-details-view + showcase-view {
+				margin-top: 15px; }
+
+			nfts-view {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+
+				nft-view {
+					display: flex;
+					width: calc(50% - 5px);
+					aspect-ratio: 1;
+					margin: 2.5px;
+					border-top-right-radius: 8px;
+					overflow: hidden;
+					position: relative;
+
+					img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover; }
+
+					&:before {
+						content: ' ';
+						display: flex;
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 30px;
+						height: 30px;
+						background-image: url(nft-icon.png);
+						background-size: contain;
+						background-position: center;
+						background-repeat: no-repeat; } } }
+			}
+
+		> tabs-view {
+			display: flex;
+			flex-direction: row;
+
+			align-items: stretch;
+
+			height: 72px;
+			background-color: #121212;
+
+			> tab-view {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				> icon-display {
+					display: flex;
+					height: 30px;
+					width: 30px;
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;  }
+				> icon-display[_for=lightbulb] {
+					background-image: url(lightbulb-icon.png);
+					}
+				> icon-display[_for=person] {
+					background-image: url(person-icon.png);
+					}
+
+				> icon-display + _-label {
+					margin-top: 8px; }
+
+				> _-label {
+					font-size: 10px;
+					}
+
+				&[active] {
+					color: #F3E893; } } } }
+
+	art-filter-screen {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		align-self: stretch;
+
+		> nav-view {
+			display: flex;
+			flex-direction: row;
+			height: 78px;
+			background-color: #121212;
+			align-self: stretch;
+			color: #CCCCCD;
+			font-weight: 100;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+
+
+			> _-action[_for=back] {
+				display: flex;
+				height: 36px;
+				width: 36px;
+				position: absolute;
+				left: 12px;
+				background-image: url(back-icon.png);
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat; }
+
+			> artist-display {
+				position: absolute;
+				left: 48px;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				display: flex;
+				flex-direction: row;
+				padding: 9px;
+
+				> profile-image-display {
+					display: flex;
+					height: 60px;
+					width: 60px;
+
+					img {
+						border-radius: 30px; } }
+
+				> profile-image-display + details-display {
+					margin-left: 12px; }
+
+				> details-display {
+					display: flex;
+					flex: 1;
+					align-self: stretch;
+					flex-direction: column;
+					overflow: hidden;
+
+					> * {
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						display: block; }
+
+					name-display {
+						height: 18px;
+						flex-direction: row;
+						font-size: 14px; }
+					one-line-description-display {
+						height: 18px;
+						flex-direction: row;
+						font-size: 16px;
+						font-weight: 700; }
+					_-hint {
+						color: #F3E89E;
+						font-size: 14px;
+						font-weight: 500; } } } }
+
+		> _-layout[_for=content] {
+			display: flex;
+			flex-direction: column;
+			align-self: stretch;
+			flex: 1;
+			justify-content: center;
+			align-items: center;
+
+			filter-display {
+				display: flex;
+				margin: 25px;
+				flex: 1;
+				align-self: stretch;
+				position: relative;
+
+				> img {
+					position: absolute;
+					object-fit: contain;
+					max-width: 100%;
+					max-height: 100%;
+					width: 100%;
+					height: 100%;
+					}
+				}
+			}
+
+		> actions-view {
+			display: flex;
+			flex-direction: row;
+			height: 120px;
+			align-items: center;
+			position: relative;
+
+			> like-view {
+				position: absolute;
+				left: 30px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				_-action[_for=like] {
+					display: flex;
+					height: 30px;
+					width: 30px;
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+
+					&[liked] {
+						background-image: url(liked-icon.png); }
+					&:not(&[liked]) {
+						background-image: url(like-icon.png); } }
+
+				> _-action[_for=like] + like-count-display {
+					margin-top: 2px; }
+
+				like-count-display {
+					color: #E25B69; } }
+
+			> _-action[_for=filter] {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				padding: 16px;
+				border-color: #2FF4F4;
+				border-style: solid;
+				border-width: 3px;
+				border-radius: 24px;
+				font-weight: 700;
+				font-size: 20px;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				white-space: nowrap;
+				font-family: 'Helvetica Neue Condensed Bold';
+
+				&:before {
+					content: ' ';
+					height: 20px;
+					width: 20px;
+					background-image: url(ai-art-filter-2-icon.png);
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+					transform: scale(1.5) translateY(-2px);
+					margin-right: 12px;
+					margin-left: 5px; } } }
+
+		}
+
+	art-filter-result-screen {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		align-self: stretch;
+
+		> nav-view {
+			display: flex;
+			flex-direction: row;
+			height: 78px;
+			background-color: #121212;
+			align-self: stretch;
+			color: #CCCCCD;
+			font-weight: 100;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+
+
+			> _-action[_for=back] {
+				display: flex;
+				height: 36px;
+				width: 36px;
+				position: absolute;
+				left: 12px;
+				background-image: url(back-icon.png);
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat; }
+
+			> artist-display {
+				position: absolute;
+				left: 48px;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				display: flex;
+				flex-direction: row;
+				padding: 9px;
+
+				> profile-image-display {
+					display: flex;
+					height: 60px;
+					width: 60px;
+
+					position: relative;
+
+					img {
+						border-radius: 30px; }
+
+					&:after {
+						content: ' ';
+						position: absolute;
+						right: -8px;
+						bottom: 0;
+						height: 24px;
+						width: 24px;
+						background-image: url(ai-art-filter-icon.png);
+						background-size: contain;
+						background-position: center;
+						background-repeat: no-repeat; } }
+
+				> profile-image-display + details-display {
+					margin-left: 12px; }
+
+				> details-display {
+					display: flex;
+					flex: 1;
+					align-self: stretch;
+					flex-direction: column;
+
+					name-display {
+						height: 18px;
+						display: flex;
+						flex-direction: row;
+						font-size: 14px; }
+					one-line-description-display {
+						display: flex;
+						height: 18px;
+						flex-direction: row;
+						font-size: 16px;
+						font-weight: 700; }
+					_-hint {
+						color: #F3E89E;
+						font-size: 14px;
+						font-weight: 500; } } } }
+
+		> _-layout[_for=content] {
+			display: flex;
+			flex-direction: column;
+			align-self: stretch;
+			flex: 1;
+			justify-content: center;
+			align-items: center;
+
+
+			_-indicator[_for=filter-details] {
+				display: flex;
+				height: 60px;
+				align-self: stretch;
+				flex-direction: row;
+
+				> _-display[_for=style], _-display[_for=content] {
+					flex: 1;
+					position: relative;
+					color: white;
+					font-size: 20px;
+					font-weight: 700;
+					justify-content: center;
+					align-items: center;
+					display: flex;
+
+					img {
+						position: absolute;
+						top: 0;
+						border: 0;
+						right: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						z-index: -1; } }
+
+				_-display[_for=style]:before {
+					content: 'STYLE'; }
+				_-display[_for=content]:before {
+					content: 'CONTENT'; } }
+
+
+			filter-display {
+				display: flex;
+				margin: 25px;
+				flex: 1;
+				align-self: stretch;
+				position: relative;
+
+				> img {
+					position: absolute;
+					object-fit: contain;
+					max-width: 100%;
+					max-height: 100%;
+					width: 100%;
+					height: 100%;
+					}
+				}
+			}
+
+		> actions-view {
+			display: flex;
+			flex-direction: row;
+			height: 60px;
+			align-items: center;
+			position: relative;
+
+			> _-action[_for=mint] {
+				position: absolute;
+				left: 10px;
+				padding: 10px 18px;
+				background-color: #73F497;
+				color: #000000;
+				border-radius: 18px;
+				font-size: 14px;
+				font-weight: 700; }
+
+			> _-indicator[_for=animation] {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				font-weight: 700;
+				font-size: 20px; }
+
+			> _-action[_for=download] {
+				position: absolute;
+				right: 0;
+				height: 24px;
+				width: 24px;
+				background-image: url(download-icon.png);
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center; } }
+
+		}
+
+	art-filter-list-screen {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		align-self: stretch;
+
+		> nav-view {
+			display: flex;
+			flex-direction: row;
+			height: 78px;
+			background-color: #121212;
+			align-self: stretch;
+			color: #CCCCCD;
+			font-weight: 100;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+
+
+			> _-action[_for=back] {
+				display: flex;
+				height: 36px;
+				width: 36px;
+				position: absolute;
+				left: 12px;
+				background-image: url(back-icon.png);
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat; }
+
+			> _-label {
+				color: #CCCCCD;
+				font-weight: 100;
+				align-items: center;
+				justify-content: center; } }
+
+		> _-layout[_for=content] {
+			display: flex;
+			flex-direction: column;
+			align-self: stretch;
+			flex: 1;
+			position: relative;
+
+			> _-layout[_for=scroll] {
+				display: flex;
+				flex-direction: column;
+				align-self: stretch;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				justify-content: flex-start;
+				align-items: stretch;
+				overflow: auto;
+
+				-ms-overflow-style: none;
+				scrollbar-width: none;
+
+				&::-webkit-scrollbar { 
+				    display: none; /* Safari and Chrome */ }
+
+				> ai-art-filter-item-view {
+					display: flex;
+					flex-direction: row;
+					height: 120px;
+					padding: 10px;
+					position: relative;
+
+					_-display[_for=image] {
+						display: flex;
+						height: 100px;
+						width: 100px;
+						position: relative;
+
+						img {
+							position: absolute;
+							left: 0;
+							right: 0;
+							top: 0;
+							bottom: 0;
+							width: 100%;
+							height: 100%;
+							object-fit: cover; } }
+
+
+					> _-display[_for=image] + filter-details-view {
+						margin-left: 10px; }
+
+					filter-details-view {
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+
+						_-display[_for=artist-name] {
+							font-size: 16px;
+							font-weight: 700; }
+
+						_-display[_for=artwork-name] {
+							font-size: 16px;
+							font-weight: 100;
+							font-style: italic; }
+
+						_-display[_for=date-name] {
+							font-size: 14px;
+							font-weight: 100;
+							font-style: italic; }
+
+						> _-display + _-display {
+							margin-top: 10px; } }
+
+					_-indicator[_for=nav] {
+						position: absolute;
+						right: 10px;
+						display: flex;
+						height: 36px;
+						width: 36px;
+						background-image: url(nav-icon.png);
+						background-size: contain;
+						background-repeat: no-repeat;
+						background-position: center;
+						top: 50%;
+						transform: translateY(-50%); } } }
+
+
+			}
+		}
+
+	}

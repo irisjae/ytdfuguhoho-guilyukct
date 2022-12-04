@@ -1,0 +1,8 @@
+{ "sourceType": "script"
+, "babelrc": false
+, "plugins":
+	[ "camarche/core/babel-integration"
+	, "camarche/modules/babel-integration"
+	, "jsx-strip-whitespace"
+	, "@babel/plugin-transform-react-jsx"
+	, "@babel/plugin-syntax-jsx" ] }

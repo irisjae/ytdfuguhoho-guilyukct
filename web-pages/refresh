@@ -1,0 +1,174 @@
+__path__="$(dirname "$0")"
+
+if [ -z "$WEB_PAGES_SRC_PATH" ] ;then
+	echo WEB_PAGES_SRC_PATH is empty >&2
+	exit 1 ;fi
+if [ -z "$WEB_PAGES_SERVE_PATH" ] ;then
+	echo WEB_PAGES_SERVE_PATH is empty >&2
+	exit 1 ;fi
+if [ -z "$WEB_PAGES_WORKING" ] ;then
+	echo WEB_PAGES_WORKING is empty >&2
+	exit 1 ;fi
+if [ -z "$WEB_PAGES_CACHE" ] ;then
+	echo WEB_PAGES_CACHE is empty >&2
+	exit 1 ;fi
+
+src_path="$WEB_PAGES_SRC_PATH"
+serve_path="$WEB_PAGES_SERVE_PATH"
+cache_path="$WEB_PAGES_CACHE"
+working_path="$WEB_PAGES_WORKING"
+
+
+mkdir -p "$serve_path/"
+mkdir -p "$cache_path/"
+mkdir -p "$working_path/"
+
+
+function pagify {
+	touch "$2" 2> /dev/null
+	node > "$2" << EOF
+let { env } = require ('process')
+let { lifetime, output_ } = require ('camarche')
+
+let { WEB_PAGES_PROCESS_INTERFACES } = env
+
+;lifetime (_ => {
+	;output_
+		( 'with (require (\'camarche\'))' + '\n'
+		+ 'lifetime (' + '\n'
+		+ '( _ => {' + '\n'
+			+ ';require (\'./$(realpath --relative-to="$(dirname "$2")" "$1")\') () } ) )' )
+	} )
+EOF
+	}
+function sassify {
+	sass --load-path="$src_path/jargon" --no-source-map "$1" "$2" ;}
+function webpackify {
+	entry_path="$working_path/entry.js"
+	pagify "$1" "$entry_path"
+
+	process_env_module_path="$working_path/process-env-module.js"
+	if echo "$SUB_ENV_VARS" | grep -q "\<NODE_ENV\>" ;then
+		cat << EOF > "$process_env_module_path"
+module .exports =
+	{ env: { NODE_ENV: $(echo -n "$NODE_ENV" | jq -aRs) } }
+EOF
+	else
+		cat << EOF > "$process_env_module_path"
+module .exports = { env: {} }
+EOF
+		fi
+
+	unused_module_path="$working_path/unused-module.js"
+	touch "$unused_module_path"
+
+	config_path="$working_path/webpack-config.js"
+	cat << EOF > "$config_path"
+let { env } = require ('process')
+let path = require ('path')
+
+var src_path = '$(realpath "$src_path")'
+
+module .exports =
+	{ mode: '${ENV_MODE:-development}'
+	, entry: './$entry_path'
+	, output:
+		{ filename: '$(basename "$2")'
+		, path: '$(realpath "$(dirname "$2")")' }
+	, cache:
+		{ type: 'filesystem'
+		, cacheDirectory: '$(realpath "$cache_path")/.webpack' }
+	, optimization:
+		{ chunkIds: 'deterministic'
+		, moduleIds: 'deterministic' }
+	, module:
+		{ rules:
+			[
+			{ test: /\.js$/
+			, exclude: /node_modules/
+			, use:
+				{ loader: 'babel-loader'
+				, options:
+					{ ... $(cat "$__path__/babel.config.json")
+					, "cacheDirectory": "$(realpath "$cache_path")/.babel" } }
+// TODO -- make babel config cache option configurable, based on env var
+			, type: 'javascript/dynamic' } ] }
+	, externals:
+		{ 'react-native': 'react-native'
+		, 'react-native-url-polyfill': 'react-native-url-polyfill' }
+	, resolve:
+		{ fallback:
+			{}
+		, alias:
+			{ 'process': '$(realpath "$process_env_module_path")'
+			, 'fs': '$(realpath "$unused_module_path")' }
+		/*, modules:
+			[ 'node_modules', ... (NODE_PATH || '') .split (';') ]*/ }
+	/*, resolveLoader:
+		{ modules:
+			[ 'node_modules', ... (NODE_PATH || '') .split (';') ] }*/ }
+EOF
+	webpack --config "$config_path" --profile --progress ;}
+
+
+
+function find-ls {
+	(
+		cd "$1" 
+		find . -mindepth 1 -maxdepth 1 | sed 's/^\.\///' | grep -v 'node_modules' ) ;}
+
+function sedi {
+	sed --version >/dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@" ;}
+
+
+
+
+echo assets
+echo --------------------------------------------------------------------------------
+find-ls "$src_path/jargon/assets" \
+| while read asset ;do 
+	echo "$asset"
+	rm "$serve_path/$asset" &>/dev/null
+	ln "$(realpath "$src_path/jargon/assets/$asset")" "$serve_path/" &>/dev/null || ln -s "$(realpath --relative-to="$serve_path/" "$src_path/jargon/assets/$asset")" "$serve_path/" &>/dev/null  ;done
+echo ================================================================================
+
+
+echo html
+echo --------------------------------------------------------------------------------
+if ! diff -q "$src_path/page.html" "$cache_path/page.html" &>/dev/null ;then
+	echo '{template}'
+	find-ls "$src_path/pages" \
+	| while read page_name ;do 
+		echo "$page_name"
+		cp "$src_path/page.html" "$serve_path/$page_name.html"
+		sedi 's/$PAGE/'"$page_name"'/g' "$serve_path/$page_name.html" ;done
+	cp "$src_path/page.html" "$cache_path/" ;fi
+echo ================================================================================
+
+
+echo css
+echo --------------------------------------------------------------------------------
+find-ls "$src_path/pages" | while read page_name ;do 
+	if [ -f "$src_path/pages/$page_name/styles.scss" ] && ! diff -q "$src_path/pages/$page_name/styles.scss" "$cache_path/$page_name.scss" &>/dev/null ;then
+		echo "$page_name" ;fi ;done \
+| while read page_name ;do 
+	echo "$page_name"
+#	rm "$serve_path/$page_name.scss" 2>/dev/null
+#	cat "$src_path/styles.scss" >> "$serve_path/$page_name.scss"
+#	echo >> "$serve_path/$page_name.scss"
+#	cat "$src_path/pages/$page_name/styles.scss" >> "$serve_path/$page_name.scss" 
+	sassify "$src_path/pages/$page_name/styles.scss" "$serve_path/$page_name.css" || continue
+	cp "$src_path/pages/$page_name/styles.scss" "$cache_path/$page_name.scss" ;done
+echo ================================================================================
+
+
+echo js
+echo --------------------------------------------------------------------------------
+find-ls "$src_path/pages" | while read page_name ;do 
+	if ! diff -q "$src_path/pages/$page_name/logic.js" "$cache_path/$page_name.js" &>/dev/null ;then
+		echo "$page_name" ;fi ;done \
+| while read page_name ;do 
+	echo "$page_name"
+	webpackify "$src_path/pages/$page_name/logic.js" "$serve_path/$page_name.js" || continue
+	cp "$src_path/pages/$page_name/logic.js" "$cache_path/$page_name.js" ;done
+echo ================================================================================

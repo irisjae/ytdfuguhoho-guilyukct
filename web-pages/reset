@@ -1,0 +1,16 @@
+__path__="$(dirname "$0")"
+
+if [ -z "$WEB_PAGES_SERVE_PATH" ] ;then
+	echo WEB_PAGES_SERVE_PATH is empty >&2
+	exit 1 ;fi
+if [ -z "$WEB_PAGES_WORKING" ] ;then
+	echo WEB_PAGES_WORKING is empty >&2
+	exit 1 ;fi
+if [ -z "$WEB_PAGES_CACHE" ] ;then
+	echo WEB_PAGES_CACHE is empty >&2
+	exit 1 ;fi
+
+rm -r "$WEB_PAGES_SERVE_PATH"
+rm -r "$WEB_PAGES_WORKING"
+rm -r "$WEB_PAGES_CACHE"
+"$__path__/refresh" $@
