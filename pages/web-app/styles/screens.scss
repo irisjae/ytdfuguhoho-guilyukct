@@ -72,15 +72,9 @@ page-view {
 		align-self: stretch;
 
 		> nav-view {
-			display: flex;
-			flex-direction: row;
-
-			height: 78px;
-
 			> _-action[_for=ai-art-filter] {
 				display: flex;
 				flex-direction: column;
-				margin: 20px;
 				height: 38px;
 				align-items: center;
 
@@ -99,8 +93,7 @@ page-view {
 				_-label {
 					color: #FFFFFF;
 					font-size: 12px;
-					font-weight: 700;
-					}
+					font-family: 'Helvetica Neue Condensed Bold'; }
 				}
 			}
 
@@ -116,7 +109,8 @@ page-view {
 				align-items: center;
 				background-color: #2BFF95;
 				color: #000000;
-				font-weight: 600; }
+				font-size: 18px;
+				font-family: 'Helvetica Neue Condensed Bold'; }
 
 			banner-view + loyalty-card-view {
 				margin-top: 27px;
@@ -130,14 +124,14 @@ page-view {
 
 				> _-label {
 					font-size: 24px;
-					font-weight: 700; }
+					font-family: 'Helvetica Neue Condensed Bold'; }
 
 				> _-label + _-display {
 					margin-top: 15px; }
 
 				> _-display {
 					font-size: 16px;
-					font-weight: 100; }
+					font-family: 'Helvetica Neue Light';}
 
 				> _-display + card-control {
 					margin-top: 20px; }
@@ -148,7 +142,7 @@ page-view {
 					height: 200px;
 					background-color: #004297;
 					border-radius: 10px;
-					padding: 30px 15px;
+					padding: 30px 20px;
 					flex-direction: row;
 					flex-wrap: wrap;
 					justify-content: space-between;
@@ -160,7 +154,27 @@ page-view {
 						width: 50px;
 						height: 50px;
 						background-color: #D9D9D9;
-						border-radius: 25px; }
+						border-radius: 25px;
+
+						> img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+							border-radius: 50%; } }
+
+					> stamp-view[_for=brand] {
+						background-image: url(aff.png);
+						background-size: cover;
+						background-repeat: no-repeat;
+						background-position: center; }
+
+					> stamp-view[_for=complete] {
+						background-image: url(celebration-icon.png);
+						background-size: cover;
+						background-repeat: no-repeat;
+						background-position: center;
+						background-color: transparent;
+						border-radius: 0; }
 
 					> hr {
 						width: 100%;
@@ -180,14 +194,24 @@ page-view {
 
 				padding: 0 25px;
 
+				overflow: auto;
+
+				-ms-overflow-style: none;
+				scrollbar-width: none;
+
+				&::-webkit-scrollbar { 
+					display: none; /* Safari and Chrome */ }
+
 				art-filter-view {
 					display: flex;
 					flex-direction: column;
-					align-items: start;
+					align-items: center;
 
 					> _-label {
 						font-size: 20px;
-						font-weight: 700; }
+						font-family: 'Helvetica Neue Condensed Bold';
+						width: 0;
+						min-width: 100%; }
 
 					> _-label + img {
 						margin-top: 20px; }
@@ -200,47 +224,7 @@ page-view {
 				> art-filter-view + art-filter-view {
 					margin-left: 25px; }
 				}
-			}
-
-		> tabs-view {
-			display: flex;
-			flex-direction: row;
-
-			align-items: stretch;
-
-			height: 72px;
-			background-color: #121212;
-
-			> tab-view {
-				flex: 1;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-
-				> icon-display {
-					display: flex;
-					height: 30px;
-					width: 30px;
-					background-size: contain;
-					background-repeat: no-repeat;
-					background-position: center;  }
-				> icon-display[_for=lightbulb] {
-					background-image: url(lightbulb-icon.png);
-					}
-				> icon-display[_for=person] {
-					background-image: url(person-icon.png);
-					}
-
-				> icon-display + _-label {
-					margin-top: 8px; }
-
-				> _-label {
-					font-size: 10px;
-					}
-
-				&[active] {
-					color: #F3E893; } } } }
+			} }
 
 	profile-screen {
 		display: flex;
@@ -249,21 +233,33 @@ page-view {
 		align-self: stretch;
 
 		> nav-view {
-			display: flex;
-			flex-direction: row;
-			height: 78px;
-			background-color: #121212;
-			align-self: stretch;
-			color: #CCCCCD;
-			font-weight: 100;
-			align-items: center;
-			justify-content: center; }
+			> _-action[_for=edit] {
+				display: flex;
+				position: absolute;
+				height: 18px;
+				width: 18px;
+				right: 22px;
+				background-image: url(edit-icon.png);
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat; } }
 
 		> _-layout[_for=content] {
 			display: flex;
 			flex-direction: column;
 			align-self: stretch;
 			flex: 1;
+
+			overflow: auto;
+
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+
+			&::-webkit-scrollbar { 
+				display: none; /* Safari and Chrome */ }
+
+			> user-details-view:first-child {
+				margin-top: 25px; }
 
 			user-details-view {
 				display: flex;
@@ -286,15 +282,20 @@ page-view {
 					margin-left: 15px; }
 
 				> _-layout[_for=content] {
+					flex-shrink: 1;
 					display: flex;
 					flex-direction: column;
 
 					name-display {
 						font-size: 22px;
-						font-weight: 700; }
+						font-family: 'Helvetica Neue Condensed Bold'; }
 
 					> name-display + one-line-description-display {
-						margin-top: 8px; }
+						margin-top: 6px; }
+
+					one-line-description-display {
+						font-size: 14px;
+						color: #F3E893; }
 
 					> one-line-description-display + addresses-view {
 						margin-top: 15px; }
@@ -303,26 +304,80 @@ page-view {
 						display: flex;
 						flex-direction: column;
 
+						address-display {
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							height: 16px;
+
+							&:before {
+								content: ' ';
+								display: flex;
+								height: 12px;
+								width: 12px;
+								background-size: contain;
+								background-position: center;
+								background-repeat: no-repeat; }
+
+							&:before {
+								opacity: 85%; }
+
+							&:before {
+								margin-right: 5px; }
+
+							&[_for=flow]:before {
+								background-image: url(flow.png); }
+
+							&[_for=polygon]:before {
+								background-image: url(polygon.png); }
+
+							_-display {
+								font-size: 14px;
+								filter: brightness(125%) saturate(65%);
+								background: linear-gradient(90deg, #C66127 0%, #F6E894 50%, #A8B7DB 100%);
+								-webkit-background-clip: text;
+								background-clip: text;
+								color: transparent; }
+
+							> _-display + _-indicator[_for=copy] {
+								margin-left: 8px; }
+
+							> _-indicator[_for=copy] {
+								background-image: url(copy-icon.png);
+								display: flex;
+								height: 12px;
+								width: 12px;
+								background-size: contain;
+								background-position: center;
+								background-repeat: no-repeat; } }
+
 						> address-display + address-display {
 							margin-top: 2px; } }
 
 					> addresses-view + description-display {
-						margin-top: 15px; } } }
+						margin-top: 25px; }
+
+					description-display {
+						font-size: 15px; } }
+
+				> _-layout[_for=content]:last-child {
+					margin-right: 15px; } }
 
 			> user-details-view + showcase-view {
-				margin-top: 15px; }
+				margin-top: 25px; }
 
 			nfts-view {
 				display: flex;
 				flex-direction: row;
 				flex-wrap: wrap;
+				align-self: stretch;
 
 				nft-view {
 					display: flex;
 					width: calc(50% - 5px);
 					aspect-ratio: 1;
 					margin: 2.5px;
-					border-top-right-radius: 8px;
+					border-radius: 8px;
 					overflow: hidden;
 					position: relative;
 
@@ -342,126 +397,21 @@ page-view {
 						background-image: url(nft-icon.png);
 						background-size: contain;
 						background-position: center;
-						background-repeat: no-repeat; } } }
-			}
+						background-repeat: no-repeat; } }
 
-		> tabs-view {
-			display: flex;
-			flex-direction: row;
-
-			align-items: stretch;
-
-			height: 72px;
-			background-color: #121212;
-
-			> tab-view {
-				flex: 1;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-
-				> icon-display {
+				> _-indicator[_for=empty] {
 					display: flex;
-					height: 30px;
-					width: 30px;
-					background-size: contain;
-					background-repeat: no-repeat;
-					background-position: center;  }
-				> icon-display[_for=lightbulb] {
-					background-image: url(lightbulb-icon.png);
-					}
-				> icon-display[_for=person] {
-					background-image: url(person-icon.png);
-					}
-
-				> icon-display + _-label {
-					margin-top: 8px; }
-
-				> _-label {
-					font-size: 10px;
-					}
-
-				&[active] {
-					color: #F3E893; } } } }
+					justify-content: center;
+					align-items: center;
+					flex: 1;
+					font-family: 'Helvetica Neue Light'; } }
+			} }
 
 	art-filter-screen {
 		display: flex;
 		flex-direction: column;
 		flex: 1;
 		align-self: stretch;
-
-		> nav-view {
-			display: flex;
-			flex-direction: row;
-			height: 78px;
-			background-color: #121212;
-			align-self: stretch;
-			color: #CCCCCD;
-			font-weight: 100;
-			align-items: center;
-			justify-content: center;
-			position: relative;
-
-
-			> _-action[_for=back] {
-				display: flex;
-				height: 36px;
-				width: 36px;
-				position: absolute;
-				left: 12px;
-				background-image: url(back-icon.png);
-				background-size: contain;
-				background-position: center;
-				background-repeat: no-repeat; }
-
-			> artist-display {
-				position: absolute;
-				left: 48px;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				display: flex;
-				flex-direction: row;
-				padding: 9px;
-
-				> profile-image-display {
-					display: flex;
-					height: 60px;
-					width: 60px;
-
-					img {
-						border-radius: 30px; } }
-
-				> profile-image-display + details-display {
-					margin-left: 12px; }
-
-				> details-display {
-					display: flex;
-					flex: 1;
-					align-self: stretch;
-					flex-direction: column;
-					overflow: hidden;
-
-					> * {
-						overflow: hidden;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						display: block; }
-
-					name-display {
-						height: 18px;
-						flex-direction: row;
-						font-size: 14px; }
-					one-line-description-display {
-						height: 18px;
-						flex-direction: row;
-						font-size: 16px;
-						font-weight: 700; }
-					_-hint {
-						color: #F3E89E;
-						font-size: 14px;
-						font-weight: 500; } } } }
 
 		> _-layout[_for=content] {
 			display: flex;
@@ -531,7 +481,6 @@ page-view {
 				border-style: solid;
 				border-width: 3px;
 				border-radius: 24px;
-				font-weight: 700;
 				font-size: 20px;
 				position: absolute;
 				left: 50%;
@@ -559,87 +508,6 @@ page-view {
 		flex: 1;
 		align-self: stretch;
 
-		> nav-view {
-			display: flex;
-			flex-direction: row;
-			height: 78px;
-			background-color: #121212;
-			align-self: stretch;
-			color: #CCCCCD;
-			font-weight: 100;
-			align-items: center;
-			justify-content: center;
-			position: relative;
-
-
-			> _-action[_for=back] {
-				display: flex;
-				height: 36px;
-				width: 36px;
-				position: absolute;
-				left: 12px;
-				background-image: url(back-icon.png);
-				background-size: contain;
-				background-position: center;
-				background-repeat: no-repeat; }
-
-			> artist-display {
-				position: absolute;
-				left: 48px;
-				right: 0;
-				top: 0;
-				bottom: 0;
-				display: flex;
-				flex-direction: row;
-				padding: 9px;
-
-				> profile-image-display {
-					display: flex;
-					height: 60px;
-					width: 60px;
-
-					position: relative;
-
-					img {
-						border-radius: 30px; }
-
-					&:after {
-						content: ' ';
-						position: absolute;
-						right: -8px;
-						bottom: 0;
-						height: 24px;
-						width: 24px;
-						background-image: url(ai-art-filter-icon.png);
-						background-size: contain;
-						background-position: center;
-						background-repeat: no-repeat; } }
-
-				> profile-image-display + details-display {
-					margin-left: 12px; }
-
-				> details-display {
-					display: flex;
-					flex: 1;
-					align-self: stretch;
-					flex-direction: column;
-
-					name-display {
-						height: 18px;
-						display: flex;
-						flex-direction: row;
-						font-size: 14px; }
-					one-line-description-display {
-						display: flex;
-						height: 18px;
-						flex-direction: row;
-						font-size: 16px;
-						font-weight: 700; }
-					_-hint {
-						color: #F3E89E;
-						font-size: 14px;
-						font-weight: 500; } } } }
-
 		> _-layout[_for=content] {
 			display: flex;
 			flex-direction: column;
@@ -660,7 +528,7 @@ page-view {
 					position: relative;
 					color: white;
 					font-size: 20px;
-					font-weight: 700;
+					font-family: 'Helvetica Neue Condensed Bold';
 					justify-content: center;
 					align-items: center;
 					display: flex;
@@ -689,7 +557,7 @@ page-view {
 				align-self: stretch;
 				position: relative;
 
-				> img {
+				> video {
 					position: absolute;
 					object-fit: contain;
 					max-width: 100%;
@@ -714,14 +582,14 @@ page-view {
 				background-color: #73F497;
 				color: #000000;
 				border-radius: 18px;
-				font-size: 14px;
-				font-weight: 700; }
+				font-size: 16px;
+				font-family: 'Helvetica Neue Condensed Bold'; }
 
 			> _-indicator[_for=animation] {
 				position: absolute;
 				left: 50%;
 				transform: translateX(-50%);
-				font-weight: 700;
+				font-family: 'Helvetica Neue Condensed Bold';
 				font-size: 20px; }
 
 			> _-action[_for=download] {
@@ -741,36 +609,6 @@ page-view {
 		flex-direction: column;
 		flex: 1;
 		align-self: stretch;
-
-		> nav-view {
-			display: flex;
-			flex-direction: row;
-			height: 78px;
-			background-color: #121212;
-			align-self: stretch;
-			color: #CCCCCD;
-			font-weight: 100;
-			align-items: center;
-			justify-content: center;
-			position: relative;
-
-
-			> _-action[_for=back] {
-				display: flex;
-				height: 36px;
-				width: 36px;
-				position: absolute;
-				left: 12px;
-				background-image: url(back-icon.png);
-				background-size: contain;
-				background-position: center;
-				background-repeat: no-repeat; }
-
-			> _-label {
-				color: #CCCCCD;
-				font-weight: 100;
-				align-items: center;
-				justify-content: center; } }
 
 		> _-layout[_for=content] {
 			display: flex;
@@ -794,7 +632,7 @@ page-view {
 				scrollbar-width: none;
 
 				&::-webkit-scrollbar { 
-				    display: none; /* Safari and Chrome */ }
+					display: none; /* Safari and Chrome */ }
 
 				> ai-art-filter-item-view {
 					display: flex;
@@ -827,23 +665,25 @@ page-view {
 						display: flex;
 						flex-direction: column;
 						justify-content: center;
+						flex: 1;
 
 						_-display[_for=artist-name] {
 							font-size: 16px;
-							font-weight: 700; }
+							font-family: 'Helvetica Neue Condensed Bold'; }
 
 						_-display[_for=artwork-name] {
 							font-size: 16px;
-							font-weight: 100;
-							font-style: italic; }
+							font-family: 'Helvetica Neue Light Italic'; }
 
 						_-display[_for=date-name] {
 							font-size: 14px;
-							font-weight: 100;
-							font-style: italic; }
+							font-family: 'Helvetica Neue Light Italic'; }
 
 						> _-display + _-display {
 							margin-top: 10px; } }
+
+					> filter-details-view {
+						margin-right: 50px; }
 
 					_-indicator[_for=nav] {
 						position: absolute;
